@@ -379,7 +379,7 @@ re-queried later.
 case GST_MESSAGE_STATE_CHANGED: {
   GstState old_state, new_state, pending_state;
   gst_message_parse_state_changed (msg, &old_state, &new_state, &pending_state);
-  if (GST_MESSAGE_SRC (msg) == GST_OBJECT (data->pipeline)) {
+  if (GST_MESSAGE_SRC (msg) == GST_OBJECT (data->playbin)) {
     g_print ("Pipeline state changed from %s to %s:\n",
         gst_element_state_get_name (old_state), gst_element_state_get_name (new_state));
 
@@ -400,7 +400,7 @@ if (data->playing) {
   GstQuery *query;
   gint64 start, end;
   query = gst_query_new_seeking (GST_FORMAT_TIME);
-  if (gst_element_query (data->pipeline, query)) {
+  if (gst_element_query (data->playbin, query)) {
     gst_query_parse_seeking (query, NULL, &data->seek_enabled, &start, &end);
     if (data->seek_enabled) {
       g_print ("Seeking is ENABLED from %" GST_TIME_FORMAT " to %" GST_TIME_FORMAT "\n",
